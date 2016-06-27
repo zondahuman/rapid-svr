@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.abin.lee.rapid.mapper.UserMapper">
+
+    <resultMap id="userResultMap" type="com.abin.lee.rapid.model.User">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="age" column="age" jdbcType="INTEGER"/>
+        <result property="passWord" column="pass_word" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <select id="findUserInfo" resultMap="userResultMap" parameterType="com.abin.lee.rapid.model.User">
+        select
+        id,
+          name ,
+          age ,
+          pass_word
+        from user where id = #{id};
+    </select>
+
+    <select id="getAllUser" resultMap="userResultMap" parameterType="com.abin.lee.rapid.model.User">
+        select id,name,age,pass_word from user;
+    </select>
+
+</mapper>

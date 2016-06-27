@@ -1,0 +1,19 @@
+create table user(
+id int not null auto_increment,
+name varchar(100),
+age int,
+pass_word varchar(1000),
+constraint pk_user primary key (id)
+)
+
+
+
+
+
+
+
+
+
+
+
+

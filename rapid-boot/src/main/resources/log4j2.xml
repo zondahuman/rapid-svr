@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Don't forget to set system property -DLog4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector 
+	to make all loggers asynchronous. -->
+<!-- http://bitfish.eu/java/log4j-2-multiple-appenders-with-different-log-levels/ -->
+<Configuration status="trace" shutdownHook="disable">
+	<!-- 整体思路：AsyncLoggerDisruptor（单线程）做logEvent的消息分发，然后多个AsyncAppender做实际的文件写入操作 -->
+	<Appenders>
+
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout pattern="%m%n" />
+		</Console>
+		<!-- Async Loggers will auto-flush in batches, so switch off immediateFlush. -->
+		<!-- info -->
+		<File name="bootfile" fileName="boot.log">
+			<PatternLayout>
+				<Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+			</PatternLayout>
+		</File>
+		<Async name="asyncInfoAppender">
+			<AppenderRef ref="bootfile" />
+		</Async>
+	</Appenders>
+	<Loggers>
+		<root level="info">
+			<AppenderRef ref="bootfile" />
+            <AppenderRef ref="STDOUT" />
+		</root>
+	</Loggers>
+</Configuration>
