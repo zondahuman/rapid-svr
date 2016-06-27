@@ -21,6 +21,11 @@ spring:
     username: root
     password:
 
+logging:
+  level:
+    ROOT: DEBUG
+
+
 
 
 
